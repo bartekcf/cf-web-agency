@@ -1,0 +1,22 @@
+---
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: readonly FAQItem[];
+  name?: string;
+}
+
+const { items, name = 'Najczęstsze pytania' } = Astro.props;
+---
+
+<section class="faq-list" aria-label={name}>
+  {items.map((item) => (
+    <details class="faq-item">
+      <summary>{item.question}</summary>
+      <div class="faq-answer"><p>{item.answer}</p></div>
+    </details>
+  ))}
+</section>

@@ -1,0 +1,159 @@
+---
+import { ArrowRight } from '@lucide/astro';
+import { packages } from '../../data/packages';
+
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+const industries = ['Usługi lokalne', 'Gastronomia', 'Branża beauty', 'Budownictwo', 'Freelancer / specjalista', 'Inna branża', 'Jeszcze nie wiem'];
+const ownershipOptions = [
+  { value: 'yes', label: 'Tak' },
+  { value: 'no', label: 'Nie' },
+  { value: 'unsure', label: 'Nie wiem' },
+];
+---
+
+<form class="card form-panel" data-inquiry-form data-endpoint={endpoint} method="post" action="/kontakt/">
+  <div class="form-grid">
+    <div class="form-field">
+      <label for="inquiry-name">Imię</label>
+      <input id="inquiry-name" name="name" type="text" autocomplete="given-name" required minlength="2" maxlength="100" />
+    </div>
+    <div class="form-field">
+      <label for="inquiry-email">Adres e-mail</label>
+      <input id="inquiry-email" name="email" type="email" autocomplete="email" required maxlength="254" />
+    </div>
+    <div class="form-field">
+      <label for="inquiry-phone">Telefon <span>(opcjonalnie)</span></label>
+      <input id="inquiry-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+    </div>
+    <div class="form-field">
+      <label for="inquiry-business">Nazwa firmy <span>(opcjonalnie)</span></label>
+      <input id="inquiry-business" name="business" type="text" autocomplete="organization" maxlength="160" />
+    </div>
+    <div class="form-field">
+      <label for="inquiry-package">Pakiet</label>
+      <select id="inquiry-package" name="package" required>
+        <option value="">Wybierz pakiet</option>
+        {packages.map((item) => <option value={item.slug}>{item.name} — od {item.priceFrom.toLocaleString('pl-PL')} zł</option>)}
+        <option value="consultation">Nie wiem — potrzebuję porady</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="inquiry-industry">Branża</label>
+      <select id="inquiry-industry" name="industry" required>
+        <option value="">Wybierz branżę</option>
+        {industries.map((industry) => <option value={industry}>{industry}</option>)}
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="inquiry-domain">Czy masz już domenę?</label>
+      <select id="inquiry-domain" name="hasDomain" required>
+        <option value="">Wybierz odpowiedź</option>
+        {ownershipOptions.map((option) => <option value={option.value}>{option.label}</option>)}
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="inquiry-hosting">Czy masz hosting?</label>
+      <select id="inquiry-hosting" name="hasHosting" required>
+        <option value="">Wybierz odpowiedź</option>
+        {ownershipOptions.map((option) => <option value={option.value}>{option.label}</option>)}
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="inquiry-logo">Czy masz logo?</label>
+      <select id="inquiry-logo" name="hasLogo" required>
+        <option value="">Wybierz odpowiedź</option>
+        {ownershipOptions.map((option) => <option value={option.value}>{option.label}</option>)}
+      </select>
+    </div>
+    <div class="form-field">
+      <label for="inquiry-materials">Czy masz teksty lub zdjęcia?</label>
+      <select id="inquiry-materials" name="hasMaterials" required>
+        <option value="">Wybierz odpowiedź</option>
+        {ownershipOptions.map((option) => <option value={option.value}>{option.label}</option>)}
+      </select>
+    </div>
+    <div class="form-field form-field--full">
+      <label for="inquiry-timing">Kiedy planujesz uruchomić stronę? <span>(opcjonalnie)</span></label>
+      <select id="inquiry-timing" name="preferredTiming">
+        <option value="">Nie mam jeszcze konkretnego terminu</option>
+        <option value="soon">Możliwie niedługo</option>
+        <option value="month">W ciągu kilku tygodni</option>
+        <option value="flexible">Mam elastyczny termin</option>
+      </select>
+    </div>
+    <div class="form-field form-field--full">
+      <label for="inquiry-message">Opowiedz krótko o swojej stronie</label>
+      <textarea id="inquiry-message" name="message" required minlength="10" maxlength="2000" placeholder="Czym zajmuje się Twoja firma i co chcesz pokazać na stronie?"></textarea>
+      <span class="form-hint">Nie musisz znać technicznych szczegółów. Wystarczy kilka zdań.</span>
+    </div>
+    <div class="form-field form-field--full">
+      <label class="form-checkbox" for="inquiry-privacy">
+        <input id="inquiry-privacy" name="privacyAcknowledgement" type="checkbox" value="yes" required />
+        <span>Potwierdzam, że zapoznałem(-am) się z <a href="/polityka-prywatnosci/">informacją o przetwarzaniu danych</a>.</span>
+      </label>
+    </div>
+    <div class="form-field form-field--full" aria-live="polite">
+      <p class="form-notice" data-form-status role="status"></p>
+      <div class="form-actions">
+        <button class="button button-primary" type="submit" data-form-submit>Wyślij zapytanie <ArrowRight size={16} aria-hidden="true" /></button>
+        <p class="form-hint">Dane zostaną wysłane wyłącznie po skonfigurowaniu usługi obsługującej formularz. Nie musisz zakładać konta.</p>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-inquiry-form]');
+  const status = form?.querySelector<HTMLElement>('[data-form-status]');
+  const submitButton = form?.querySelector<HTMLButtonElement>('[data-form-submit]');
+  const packageSelect = form?.querySelector<HTMLSelectElement>('[name="package"]');
+
+  if (form && status && submitButton) {
+    form.noValidate = true;
+    const selectedPackage = new URLSearchParams(window.location.search).get('pakiet');
+    if (selectedPackage && packageSelect && [...packageSelect.options].some((option) => option.value === selectedPackage)) {
+      packageSelect.value = selectedPackage;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      status.textContent = '';
+      status.dataset.state = '';
+
+      if (!form.reportValidity()) {
+        status.textContent = 'Sprawdź wymagane pola i popraw wskazane wartości.';
+        status.dataset.state = 'error';
+        return;
+      }
+
+      const endpoint = form.dataset.endpoint?.trim();
+      if (!endpoint) {
+        status.textContent = 'Formularz nie jest jeszcze połączony z usługą wysyłkową. Dane nie zostały wysłane.';
+        status.dataset.state = 'error';
+        return;
+      }
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Wysyłanie…';
+      status.textContent = 'Wysyłamy zapytanie…';
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!response.ok) throw new Error(`Form service returned ${response.status}`);
+        form.reset();
+        status.textContent = 'Zapytanie zostało wysłane. Dziękujemy — wrócimy do Ciebie po zapoznaniu się z wiadomością.';
+        status.dataset.state = 'success';
+      } catch {
+        status.textContent = 'Nie udało się wysłać zapytania. Twoje dane pozostały w formularzu — spróbuj ponownie później.';
+        status.dataset.state = 'error';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Wyślij zapytanie';
+      }
+    });
+  }
+</script>

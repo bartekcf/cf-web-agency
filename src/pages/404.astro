@@ -1,0 +1,16 @@
+---
+import { ArrowLeft, House } from '@lucide/astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Nie znaleziono strony" description="Nie znaleziono wskazanej strony. Wróć na stronę główną lub przejdź do oferty." noindex>
+  <main id="main">
+    <section class="container error-page">
+      <div><p class="eyebrow">Zabłądziliśmy?</p><h1>404</h1><h2>Tej strony tu nie ma.</h2><p>Adres mógł się zmienić albo zawiera błąd. Wróć na początek lub sprawdź ofertę.</p><div class="error-actions"><a class="button button-primary" href="/"><House size={16} aria-hidden="true" /> Strona główna</a><a class="button button-secondary" href="/oferta/"><ArrowLeft size={16} aria-hidden="true" /> Zobacz ofertę</a></div></div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .error-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: .7rem; }
+</style>

@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectPreview from "../../components/ProjectPreview.astro";
+import { projects } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<BaseLayout
+  title={`${project.name} — koncepcja demonstracyjna`}
+  description={`${project.description} Demonstracyjna koncepcja, nie realizacja klienta.`}
+  canonicalPath={`/realizacje/${project.slug}/`}
+>
+  <main id="main">
+    <article class="detail container section">
+      <nav class="breadcrumbs" aria-label="Nawigacja okruszkowa">
+        <a href="/realizacje/">← Wszystkie koncepcje</a>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{project.name}</span>
+      </nav>
+      <header class="detail-header">
+        <p class="eyebrow">{project.category} · Koncepcja demonstracyjna</p>
+        <h1 class="display">{project.name}</h1>
+        <p class="lead muted">{project.description}</p>
+        <p class="concept-note"><strong>Projekt koncepcyjny.</strong> To demonstracyjny kierunek wizualny i funkcjonalny, a nie praca wykonana dla klienta ani wdrożony serwis.</p>
+      </header>
+      <div class="preview-wrap">
+        <ProjectPreview project={project} size="large" />
+      </div>
+      <section class="content-grid" aria-label="Informacje o koncepcji">
+        <div class="content-block">
+          <p class="eyebrow">Założenie</p>
+          <h2>O koncepcji</h2>
+          <p>{project.concept}</p>
+        </div>
+        <div class="content-block">
+          <p class="eyebrow">Zakres</p>
+          <h2>Zakres koncepcji</h2>
+          <ul>{project.scope.map((item) => <li>{item}</li>)}</ul>
+        </div>
+        <div class="content-block features">
+          <p class="eyebrow">Możliwości</p>
+          <h2>Przewidziane elementy</h2>
+          <ul>{project.features.map((feature) => <li>{feature}</li>)}</ul>
+        </div>
+      </section>
+      <aside class="contact-cta" aria-labelledby="contact-title">
+        <div>
+          <p class="eyebrow">Kolejny krok</p>
+          <h2 id="contact-title">Chcesz omówić własną stronę?</h2>
+          <p class="muted">Opowiedz o swoim pomyśle — wspólnie określimy kierunek i zakres.</p>
+        </div>
+        <a class="button button-primary" href="/kontakt/">Porozmawiajmy</a>
+      </aside>
+      <a class="back-link" href="/realizacje/">← Wróć do wszystkich koncepcji</a>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .detail { max-width: 1120px; padding-top: clamp(2.5rem, 6vw, 5rem); }
+  .breadcrumbs { display: flex; flex-wrap: wrap; gap: .65rem; color: var(--muted); font-size: .9rem; }
+  .breadcrumbs a, .back-link { color: var(--accent-dark); font-weight: 600; text-decoration: none; }
+  .breadcrumbs a:hover, .back-link:hover { text-decoration: underline; }
+  .detail-header { max-width: 800px; margin: clamp(2.5rem, 6vw, 4.5rem) 0 2rem; }
+  h1 { margin: .6rem 0 1rem; }
+  .lead { font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.7; }
+  .concept-note { margin-top: 1.5rem; padding: 1rem 1.2rem; border-left: 3px solid var(--accent); background: var(--surface); line-height: 1.65; }
+  .preview-wrap { overflow: hidden; border: 1px solid var(--line); border-radius: 1.5rem; }
+  .content-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3rem); margin: clamp(3rem, 7vw, 5rem) 0; }
+  .content-block h2, .contact-cta h2 { margin: .5rem 0 1rem; font-size: clamp(1.4rem, 2.5vw, 2rem); }
+  .content-block p:not(.eyebrow), .content-block li { line-height: 1.75; }
+  .content-block ul { display: grid; gap: .65rem; padding-left: 1.25rem; }
+  .contact-cta { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: clamp(1.5rem, 4vw, 3rem); border-radius: 1.5rem; background: var(--surface); }
+  .contact-cta h2 { margin-bottom: .5rem; }
+  .back-link { display: inline-block; margin-top: 2rem; }
+  @media (max-width: 680px) { .content-grid { grid-template-columns: 1fr; } .contact-cta { align-items: flex-start; flex-direction: column; } }
+</style>

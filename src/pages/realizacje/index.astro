@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectPreview from "../../components/ProjectPreview.astro";
+import { projects } from "../../data/projects";
+---
+
+<BaseLayout
+  title="Realizacje — projekty koncepcyjne"
+  description="Poznaj przykładowe projekty koncepcyjne stron i serwisów. Każda prezentacja ma charakter demonstracyjny."
+  canonicalPath="/realizacje/"
+>
+  <main id="main">
+    <section class="section portfolio container" aria-labelledby="portfolio-title">
+      <p class="eyebrow">Wybrane koncepcje</p>
+      <h1 id="portfolio-title" class="display">Realizacje, które zaczynają się od pomysłu</h1>
+      <p class="intro muted">To demonstracyjne projekty koncepcyjne przygotowane, by pokazać możliwe kierunki projektowania. Nie są prezentacją prac wykonanych dla klientów ani wdrożonych serwisów.</p>
+      <div class="notice" role="note">
+        <strong>Ważne:</strong> wszystkie pozycje na tej stronie są koncepcjami demonstracyjnymi.
+      </div>
+      <div class="project-grid">
+        {projects.map((project) => (
+          <article class="project-card">
+            <a class="project-link" href={`/realizacje/${project.slug}/`} aria-label={`Zobacz szczegóły koncepcji: ${project.name}`}>
+              <ProjectPreview project={project} size="compact" />
+              <div class="project-copy">
+                <div class="project-meta">
+                  <span class="tag">{project.category}</span>
+                  <span class="concept-label">Koncepcja</span>
+                </div>
+                <h2>{project.name}</h2>
+                <p class="muted">{project.description}</p>
+                <span class="more">Zobacz koncepcję <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+      <div class="contact-cta">
+        <div>
+          <p class="eyebrow">Masz własny pomysł?</p>
+          <h2>Porozmawiajmy o Twoim projekcie</h2>
+        </div>
+        <a class="button button-primary" href="/kontakt/">Skontaktuj się</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .portfolio { padding-top: clamp(3rem, 8vw, 6.5rem); }
+  h1 { max-width: 850px; margin: .6rem 0 1rem; }
+  .intro { max-width: 680px; font-size: 1.1rem; line-height: 1.7; }
+  .notice { margin: 2rem 0 3rem; padding: 1rem 1.25rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); color: var(--ink); }
+  .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); }
+  .project-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface); transition: transform .2s ease, box-shadow .2s ease; }
+  .project-card:hover { transform: translateY(-3px); box-shadow: 0 1rem 2.5rem rgb(20 28 25 / 8%); }
+  .project-link { display: block; color: inherit; text-decoration: none; }
+  .project-link:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 1rem; }
+  .project-copy { padding: 1.4rem clamp(1rem, 2vw, 1.75rem) 1.6rem; }
+  .project-meta { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+  .concept-label { color: var(--muted); font-size: .85rem; }
+  h2 { margin: .85rem 0 .5rem; font-size: clamp(1.3rem, 2vw, 1.75rem); }
+  .project-copy p { line-height: 1.65; }
+  .more { display: inline-block; margin-top: .5rem; color: var(--accent-dark); font-weight: 650; }
+  .contact-cta { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: clamp(3rem, 8vw, 6rem); padding: clamp(1.5rem, 4vw, 3rem); border-radius: 1.5rem; background: var(--surface); }
+  .contact-cta h2 { margin: .5rem 0 0; }
+  @media (max-width: 680px) { .project-grid { grid-template-columns: 1fr; } .contact-cta { align-items: flex-start; flex-direction: column; } }
+  @media (prefers-reduced-motion: reduce) { .project-card { transition: none; } }
+</style>

@@ -1,0 +1,54 @@
+---
+import { ArrowUpRight, Menu, X } from '@lucide/astro';
+import { site } from '../../data/site';
+---
+
+<header class="site-header" data-site-header>
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label={`${site.name} — strona główna`}>
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 17.5 12 5l6 12.5M8 14h8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg></span>
+      <span>{site.name}</span>
+    </a>
+    <nav class="site-nav" id="primary-navigation" aria-label="Nawigacja główna">
+      {site.nav.map((item) => (
+        <a href={item.href} aria-current={Astro.url.pathname.replace(/\/$/, '') === item.href.replace(/\/$/, '') ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+    <a class="button button-primary header-cta" href="/kontakt/">Zamów stronę <ArrowUpRight size={16} aria-hidden="true" /></a>
+    <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Otwórz menu" data-menu-toggle>
+      <Menu class="menu-icon" size={19} aria-hidden="true" />
+      <X class="close-icon" size={19} aria-hidden="true" />
+    </button>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-site-header]');
+  const toggle = header?.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const navigation = header?.querySelector<HTMLElement>('#primary-navigation');
+
+  if (header && toggle && navigation) {
+    const setOpen = (open: boolean) => {
+      header.dataset.menuOpen = String(open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Zamknij menu' : 'Otwórz menu');
+    };
+
+    toggle.addEventListener('click', () => setOpen(header.dataset.menuOpen !== 'true'));
+    navigation.addEventListener('click', (event) => {
+      if (event.target instanceof HTMLAnchorElement) setOpen(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+  }
+</script>
+
+<style>
+  .close-icon { display: none; }
+  .site-header[data-menu-open="true"] .menu-icon { display: none; }
+  .site-header[data-menu-open="true"] .close-icon { display: block; }
+  @media (min-width: 721px) {
+    .site-header .site-nav { display: flex; }
+  }
+</style>
