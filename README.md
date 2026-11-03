@@ -30,6 +30,12 @@ pnpm run deploy:cloudflare
 
 `pnpm preview` podgląda samą statyczną stronę. `pnpm run deploy:cloudflare` buduje ją i wdraża Worker oraz assety przez Wrangler.
 
+## Cloudflare Pages
+
+Ustawienia builda powinny wskazywać katalog repozytorium zawierający `package.json` i `pnpm-workspace.yaml`, polecenie `pnpm run build` oraz katalog wynikowy `dist`. Projekt wymaga Node.js zgodnego z `package.json` i pnpm 9.10.0 lub nowszego. Workspace musi zawierać niepustą listę `packages`; dla tego pojedynczego projektu jest to `packages: ['.']`.
+
+Nowy build uruchamia się po wypchnięciu commita do gałęzi podłączonej w Cloudflare Pages. W szczegółach builda sprawdź, czy SHA commita obejmuje aktualny `pnpm-workspace.yaml`.
+
 ## Konfiguracja przed wdrożeniem
 
 1. `src/data/site.ts` — ustaw docelową nazwę marki. `PUBLIC_SITE_URL` podaj w środowisku produkcyjnego builda jako pełny adres HTTPS. Bez niego canonicale i adresy w sitemapie nie będą wskazywać domeny produkcyjnej.
