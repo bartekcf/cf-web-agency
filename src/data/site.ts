@@ -1,3 +1,5 @@
+import { contact } from './contact';
+
 export interface SocialLink {
   label: string;
   href: string;
@@ -16,10 +18,10 @@ interface SiteConfig {
 export const site: SiteConfig = {
   name: 'TwojaStrona',
   description:
-    'Przystępne, dopracowane strony internetowe dla małych firm. Projekt, konfiguracja i publikacja bez technicznego stresu.',
+    'Strony internetowe i proste aplikacje dla małych firm. Pomoc z treścią, domeną, hostingiem i uruchomieniem.',
   siteUrl: (import.meta.env.PUBLIC_SITE_URL ?? '').replace(/\/$/, ''),
-  contactEmail: '',
-  phone: '',
+  contactEmail: contact.email,
+  phone: contact.phone,
   socialLinks: [] as SocialLink[],
   nav: [
     { label: 'Oferta', href: '/oferta/' },

@@ -1,159 +1,183 @@
 ---
 import { ArrowRight } from '@lucide/astro';
-import { packages } from '../../data/packages';
-
-const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
-const industries = ['Usługi lokalne', 'Gastronomia', 'Branża beauty', 'Budownictwo', 'Freelancer / specjalista', 'Inna branża', 'Jeszcze nie wiem'];
-const ownershipOptions = [
-  { value: 'yes', label: 'Tak' },
-  { value: 'no', label: 'Nie' },
-  { value: 'unsure', label: 'Nie wiem' },
-];
+import { offers } from '../../data/offers';
 ---
 
-<form class="card form-panel" data-inquiry-form data-endpoint={endpoint} method="post" action="/kontakt/">
+<form class="card form-panel" id="formularz" data-inquiry-form action="/api/callback" method="post" enctype="multipart/form-data">
+  <div class="form-intro">
+    <p class="eyebrow">Prosta prośba o kontakt</p>
+    <h2>Oddzwonimy</h2>
+    <p>Podaj numer telefonu. Pozostałe informacje możesz dopisać, ale nie są potrzebne, żeby poprosić o rozmowę.</p>
+  </div>
   <div class="form-grid">
-    <div class="form-field">
-      <label for="inquiry-name">Imię</label>
-      <input id="inquiry-name" name="name" type="text" autocomplete="given-name" required minlength="2" maxlength="100" />
+    <div class="form-field form-field--full">
+      <label for="callback-phone">Na jaki numer oddzwonić?</label>
+      <input id="callback-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+48 600 000 000" maxlength="40" aria-describedby="phone-hint phone-error" required />
+      <span id="phone-hint" class="form-hint">Wpisz numer ze spacjami lub prefiksem kraju.</span>
+      <p class="form-error" id="phone-error" data-error-for="phone" aria-live="polite"></p>
     </div>
     <div class="form-field">
-      <label for="inquiry-email">Adres e-mail</label>
-      <input id="inquiry-email" name="email" type="email" autocomplete="email" required maxlength="254" />
+      <label for="callback-name">Imię <span>(opcjonalnie)</span></label>
+      <input id="callback-name" name="name" type="text" autocomplete="given-name" maxlength="100" aria-describedby="name-error" />
+      <p class="form-error" id="name-error" data-error-for="name" aria-live="polite"></p>
     </div>
     <div class="form-field">
-      <label for="inquiry-phone">Telefon <span>(opcjonalnie)</span></label>
-      <input id="inquiry-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
-    </div>
-    <div class="form-field">
-      <label for="inquiry-business">Nazwa firmy <span>(opcjonalnie)</span></label>
-      <input id="inquiry-business" name="business" type="text" autocomplete="organization" maxlength="160" />
-    </div>
-    <div class="form-field">
-      <label for="inquiry-package">Pakiet</label>
-      <select id="inquiry-package" name="package" required>
-        <option value="">Wybierz pakiet</option>
-        {packages.map((item) => <option value={item.slug}>{item.name} — od {item.priceFrom.toLocaleString('pl-PL')} zł</option>)}
-        <option value="consultation">Nie wiem — potrzebuję porady</option>
+      <label for="callback-package">Czym jesteś zainteresowany? <span>(opcjonalnie)</span></label>
+      <select id="callback-package" name="package" aria-describedby="package-error">
+        <option value="unknown" selected>Nie wiem — doradźcie</option>
+        {offers.map((offer) => <option value={offer.slug}>{offer.name}</option>)}
       </select>
-    </div>
-    <div class="form-field">
-      <label for="inquiry-industry">Branża</label>
-      <select id="inquiry-industry" name="industry" required>
-        <option value="">Wybierz branżę</option>
-        {industries.map((industry) => <option value={industry}>{industry}</option>)}
-      </select>
-    </div>
-    <div class="form-field">
-      <label for="inquiry-domain">Czy masz już domenę?</label>
-      <select id="inquiry-domain" name="hasDomain" required>
-        <option value="">Wybierz odpowiedź</option>
-        {ownershipOptions.map((option) => <option value={option.value}>{option.label}</option>)}
-      </select>
-    </div>
-    <div class="form-field">
-      <label for="inquiry-hosting">Czy masz hosting?</label>
-      <select id="inquiry-hosting" name="hasHosting" required>
-        <option value="">Wybierz odpowiedź</option>
-        {ownershipOptions.map((option) => <option value={option.value}>{option.label}</option>)}
-      </select>
-    </div>
-    <div class="form-field">
-      <label for="inquiry-logo">Czy masz logo?</label>
-      <select id="inquiry-logo" name="hasLogo" required>
-        <option value="">Wybierz odpowiedź</option>
-        {ownershipOptions.map((option) => <option value={option.value}>{option.label}</option>)}
-      </select>
-    </div>
-    <div class="form-field">
-      <label for="inquiry-materials">Czy masz teksty lub zdjęcia?</label>
-      <select id="inquiry-materials" name="hasMaterials" required>
-        <option value="">Wybierz odpowiedź</option>
-        {ownershipOptions.map((option) => <option value={option.value}>{option.label}</option>)}
-      </select>
+      <p class="form-error" id="package-error" data-error-for="package" aria-live="polite"></p>
     </div>
     <div class="form-field form-field--full">
-      <label for="inquiry-timing">Kiedy planujesz uruchomić stronę? <span>(opcjonalnie)</span></label>
-      <select id="inquiry-timing" name="preferredTiming">
-        <option value="">Nie mam jeszcze konkretnego terminu</option>
-        <option value="soon">Możliwie niedługo</option>
-        <option value="month">W ciągu kilku tygodni</option>
-        <option value="flexible">Mam elastyczny termin</option>
-      </select>
+      <label for="callback-message">Chcesz coś dopisać? <span>(opcjonalnie)</span></label>
+      <textarea id="callback-message" name="message" maxlength="1000" aria-describedby="message-hint message-error"></textarea>
+      <span id="message-hint" class="form-hint">Możesz napisać kilka słów o firmie i tym, czego potrzebujesz. Resztę ustalimy podczas rozmowy</span>
+      <p class="form-error" id="message-error" data-error-for="message" aria-live="polite"></p>
     </div>
     <div class="form-field form-field--full">
-      <label for="inquiry-message">Opowiedz krótko o swojej stronie</label>
-      <textarea id="inquiry-message" name="message" required minlength="10" maxlength="2000" placeholder="Czym zajmuje się Twoja firma i co chcesz pokazać na stronie?"></textarea>
-      <span class="form-hint">Nie musisz znać technicznych szczegółów. Wystarczy kilka zdań.</span>
-    </div>
-    <div class="form-field form-field--full">
-      <label class="form-checkbox" for="inquiry-privacy">
-        <input id="inquiry-privacy" name="privacyAcknowledgement" type="checkbox" value="yes" required />
+      <label class="form-checkbox" for="callback-privacy">
+        <input id="callback-privacy" name="privacyAcknowledgement" type="checkbox" value="yes" aria-describedby="privacy-error" required />
         <span>Potwierdzam, że zapoznałem(-am) się z <a href="/polityka-prywatnosci/">informacją o przetwarzaniu danych</a>.</span>
       </label>
+      <p class="form-error" id="privacy-error" data-error-for="privacyAcknowledgement" aria-live="polite"></p>
     </div>
-    <div class="form-field form-field--full" aria-live="polite">
-      <p class="form-notice" data-form-status role="status"></p>
+    <div class="form-honeypot" aria-hidden="true">
+      <label for="callback-website">Pozostaw to pole puste</label>
+      <input id="callback-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+    <div class="form-field form-field--full">
+      <p class="form-notice" data-form-status role="status" aria-live="polite"></p>
       <div class="form-actions">
-        <button class="button button-primary" type="submit" data-form-submit>Wyślij zapytanie <ArrowRight size={16} aria-hidden="true" /></button>
-        <p class="form-hint">Dane zostaną wysłane wyłącznie po skonfigurowaniu usługi obsługującej formularz. Nie musisz zakładać konta.</p>
+        <button class="button button-primary" type="submit" data-form-submit>
+          <span data-submit-label>Poproś o telefon</span><ArrowRight size={16} aria-hidden="true" />
+        </button>
+        <p class="form-hint">To prośba o kontakt, nie płatne zamówienie. Nie musisz znać się na technologii.</p>
       </div>
     </div>
   </div>
 </form>
 
 <script>
+  import { normalizePhoneNumber, phoneValidationMessage } from '../../lib/contact-validation';
+
   const form = document.querySelector<HTMLFormElement>('[data-inquiry-form]');
   const status = form?.querySelector<HTMLElement>('[data-form-status]');
   const submitButton = form?.querySelector<HTMLButtonElement>('[data-form-submit]');
+  const submitLabel = form?.querySelector<HTMLElement>('[data-submit-label]');
+  const phoneInput = form?.querySelector<HTMLInputElement>('[name="phone"]');
   const packageSelect = form?.querySelector<HTMLSelectElement>('[name="package"]');
+  let submitting = false;
 
-  if (form && status && submitButton) {
+  if (form && status && submitButton && submitLabel && phoneInput) {
     form.noValidate = true;
-    const selectedPackage = new URLSearchParams(window.location.search).get('pakiet');
-    if (selectedPackage && packageSelect && [...packageSelect.options].some((option) => option.value === selectedPackage)) {
-      packageSelect.value = selectedPackage;
+
+    const selectedOffer = new URLSearchParams(window.location.search).get('pakiet');
+    if (selectedOffer && packageSelect && [...packageSelect.options].some((option) => option.value === selectedOffer)) {
+      packageSelect.value = selectedOffer;
     }
+
+    const clearFieldError = (field: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) => {
+      field.setCustomValidity('');
+      field.removeAttribute('aria-invalid');
+      const error = form.querySelector<HTMLElement>(`[data-error-for="${field.name}"]`);
+      if (error) error.textContent = '';
+    };
+
+    form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('input, select, textarea').forEach((field) => {
+      field.addEventListener('input', () => clearFieldError(field));
+      field.addEventListener('change', () => clearFieldError(field));
+    });
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      if (submitting) return;
+
       status.textContent = '';
       status.dataset.state = '';
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[aria-invalid="true"]').forEach(clearFieldError);
+
+      const phoneIsValid = normalizePhoneNumber(phoneInput.value) !== null;
+      const phoneIsMalformed = phoneInput.value.trim().length > 0 && !phoneIsValid;
+      phoneInput.setCustomValidity(phoneIsMalformed ? phoneValidationMessage : '');
 
       if (!form.reportValidity()) {
+        const invalidField = form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(':invalid');
+        if (invalidField) {
+          invalidField.setAttribute('aria-invalid', 'true');
+          const error = form.querySelector<HTMLElement>(`[data-error-for="${invalidField.name}"]`);
+          if (error) {
+            error.textContent = invalidField === phoneInput
+              ? phoneIsMalformed ? phoneValidationMessage : 'Wpisz numer telefonu.'
+              : invalidField.name === 'privacyAcknowledgement'
+                ? 'Potwierdź zapoznanie się z informacją o przetwarzaniu danych.'
+                : invalidField.validationMessage;
+          }
+        }
         status.textContent = 'Sprawdź wymagane pola i popraw wskazane wartości.';
         status.dataset.state = 'error';
         return;
       }
 
-      const endpoint = form.dataset.endpoint?.trim();
-      if (!endpoint) {
-        status.textContent = 'Formularz nie jest jeszcze połączony z usługą wysyłkową. Dane nie zostały wysłane.';
-        status.dataset.state = 'error';
-        return;
-      }
-
+      submitting = true;
       submitButton.disabled = true;
-      submitButton.textContent = 'Wysyłanie…';
-      status.textContent = 'Wysyłamy zapytanie…';
+      submitLabel.textContent = 'Wysyłamy…';
+      status.textContent = 'Wysyłamy prośbę o kontakt…';
+      status.dataset.state = 'sending';
 
       try {
-        const response = await fetch(endpoint, {
+        const response = await fetch(form.action, {
           method: 'POST',
           body: new FormData(form),
           headers: { Accept: 'application/json' },
         });
-        if (!response.ok) throw new Error(`Form service returned ${response.status}`);
+        const result = await response.json() as {
+          success?: boolean;
+          message?: string;
+          fieldErrors?: Record<string, string>;
+        };
+
+        if (!response.ok || result.success !== true) {
+          for (const [name, message] of Object.entries(result.fieldErrors ?? {})) {
+            const field = form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>(`[name="${name}"]`);
+            const error = form.querySelector<HTMLElement>(`[data-error-for="${name}"]`);
+            if (field) {
+              field.setCustomValidity(message);
+              field.setAttribute('aria-invalid', 'true');
+            }
+            if (error) error.textContent = message;
+          }
+          status.textContent = result.message ?? 'Nie udało się wysłać prośby. Twoje dane pozostały w formularzu — spróbuj ponownie.';
+          status.dataset.state = 'error';
+          const invalidField = form.querySelector<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[aria-invalid="true"]');
+          if (invalidField) {
+            invalidField.focus();
+            invalidField.reportValidity();
+          }
+          return;
+        }
+
         form.reset();
-        status.textContent = 'Zapytanie zostało wysłane. Dziękujemy — wrócimy do Ciebie po zapoznaniu się z wiadomością.';
+        if (packageSelect) packageSelect.value = 'unknown';
+        status.textContent = result.message ?? 'Dziękujemy! Otrzymaliśmy prośbę o kontakt. Odezwie się do Ciebie człowiek z naszego zespołu.';
         status.dataset.state = 'success';
       } catch {
-        status.textContent = 'Nie udało się wysłać zapytania. Twoje dane pozostały w formularzu — spróbuj ponownie później.';
+        status.textContent = 'Nie udało się wysłać prośby. Twoje dane pozostały w formularzu — spróbuj ponownie.';
         status.dataset.state = 'error';
       } finally {
+        submitting = false;
         submitButton.disabled = false;
-        submitButton.textContent = 'Wyślij zapytanie';
+        submitLabel.textContent = 'Poproś o telefon';
       }
     });
   }
 </script>
+
+<style>
+  .form-intro { margin-bottom: 1.5rem; }
+  .form-intro h2 { margin: 0 0 .6rem; font-size: clamp(1.7rem, 3.2vw, 2.3rem); letter-spacing: -.04em; }
+  .form-intro p:last-child { max-width: 38rem; margin: 0; color: var(--muted); font-size: .9rem; }
+  .form-error { min-height: 0; margin: 0; color: #a23e45; font-size: .8rem; }
+  .form-error:empty { display: none; }
+  .form-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; white-space: nowrap; }
+</style>

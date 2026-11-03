@@ -16,17 +16,17 @@ import { site } from '../../data/site';
       <div class="footer-column">
         <h2>Strony</h2>
         <nav class="footer-links" aria-label="Oferta i realizacje">
-          <a href="/oferta/">Oferta i pakiety</a>
+          <a href="/oferta/">Oferta</a>
           <a href="/realizacje/">Projekty koncepcyjne</a>
           <a href="/jak-to-dziala/">Jak to działa</a>
         </nav>
       </div>
       <div class="footer-column">
         <h2>Kontakt</h2>
-        <nav class="footer-links" aria-label="Kontakt i zamówienie">
-          <a href="/kontakt/">Zapytaj o stronę <ArrowUpRight size={14} aria-hidden="true" /></a>
+        <nav class="footer-links" aria-label="Kontakt">
+          <a href="/kontakt/#formularz">Poproś o telefon <ArrowUpRight size={14} aria-hidden="true" /></a>
           {site.contactEmail && <a class="footer-contact" href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>}
-          {site.phone && <a class="footer-contact" href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a>}
+          {site.phone && <a class="footer-contact" href={`tel:${site.phone.replace(/[^\d+]/g, '')}`}>{site.phone}</a>}
           {site.socialLinks.map((social) => <a class="footer-contact" href={social.href}>{social.label}</a>)}
         </nav>
       </div>
@@ -40,7 +40,7 @@ import { site } from '../../data/site';
     </div>
     <div class="footer-bottom">
       <span>© {new Date().getFullYear()} {site.name}</span>
-      <span>Strony internetowe dla małych firm</span>
+      <span>Strony i proste aplikacje dla małych firm</span>
     </div>
   </div>
 </footer>

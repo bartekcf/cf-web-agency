@@ -1,4 +1,4 @@
-import { packages } from '../data/packages';
+import { offers } from '../data/offers';
 import { projects } from '../data/projects';
 import { site } from '../data/site';
 
@@ -7,7 +7,7 @@ export const prerender = true;
 const paths = [
   '/',
   '/oferta/',
-  ...packages.map((item) => `/oferta/${item.slug}/`),
+  ...offers.map((offer) => `/oferta/${offer.slug}/`),
   '/realizacje/',
   ...projects.map((project) => `/realizacje/${project.slug}/`),
   '/jak-to-dziala/',

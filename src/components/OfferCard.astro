@@ -1,0 +1,27 @@
+---
+import { ArrowRight, Check } from '@lucide/astro';
+import { offers } from '../data/offers';
+
+interface Props {
+  offer: (typeof offers)[number];
+}
+
+const { offer } = Astro.props;
+---
+
+<article class="card offer-card">
+  <p class="eyebrow">Oferta</p>
+  <h3>{offer.name}</h3>
+  <p class="offer-price">{offer.priceLabel}</p>
+  <p class="offer-summary">{offer.summary}</p>
+  <p class="offer-audience"><strong>Dla kogo:</strong> {offer.audience}</p>
+  <p class="offer-result"><strong>Rezultat:</strong> {offer.result}</p>
+  <ul class="offer-list">
+    {offer.scope.map((feature) => <li><Check size={16} aria-hidden="true" />{feature}</li>)}
+  </ul>
+  <a class="button button-primary" href={`/kontakt/?pakiet=${offer.slug}#formularz`}>
+    Jestem zainteresowany <ArrowRight size={16} aria-hidden="true" />
+  </a>
+  <a class="offer-details" href={`/oferta/${offer.slug}/`}>Zobacz szczegóły <ArrowRight size={15} aria-hidden="true" /></a>
+  <p class="offer-caveat">Zakres obsługi domeny, hostingu i utrzymania oraz ewentualne koszty uzgadniamy przed rozpoczęciem.</p>
+</article>

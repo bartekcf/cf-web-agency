@@ -1,21 +1,22 @@
 ---
-import { ArrowRight, Mail, MessageCircle } from '@lucide/astro';
+import { ArrowRight, Mail, MessageCircle, PhoneCall } from '@lucide/astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/forms/ContactForm.astro';
 import { site } from '../data/site';
 ---
 
-<BaseLayout title="Kontakt — zapytaj o stronę" description="Opowiedz, jakiej strony potrzebuje Twoja firma. Wybierz pakiet lub poproś o pomoc w dobraniu zakresu." canonicalPath="/kontakt/">
+<BaseLayout title="Kontakt — poproś o telefon" description="Poproś o telefon w sprawie firmowej strony lub prostej aplikacji. Podaj numer, a resztę ustalimy podczas rozmowy." canonicalPath="/kontakt/">
   <main id="main">
     <section class="section contact-page">
       <div class="container form-layout">
         <aside class="form-aside">
-          <p class="eyebrow">Kontakt i zamówienie</p>
-          <h1>Opowiedz nam o swojej stronie.</h1>
-          <p class="muted">Nie musisz znać technicznych szczegółów. Napisz, czym zajmuje się Twoja firma i czego potrzebujesz — pomożemy ustalić dobry zakres.</p>
+          <p class="eyebrow">Kontakt</p>
+          <h1>Porozmawiajmy o tym, czego potrzebujesz.</h1>
+          <p class="muted">Wystarczy numer telefonu. Opowiesz nam o firmie lub zadaniu, które chcesz usprawnić — wspólnie ustalimy kolejny krok.</p>
           <div class="contact-notes">
-            <div><span class="contact-icon"><MessageCircle size={18} aria-hidden="true" /></span><p><strong>Bez zobowiązań</strong><span>Wysłanie zapytania nie oznacza zamówienia.</span></p></div>
-            <div><span class="contact-icon"><Mail size={18} aria-hidden="true" /></span><p><strong>Wolisz napisać bezpośrednio?</strong>{site.contactEmail ? <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a> : <span>Adres e-mail zostanie uzupełniony przed wdrożeniem.</span>}</p></div>
+            <div><span class="contact-icon"><MessageCircle size={18} aria-hidden="true" /></span><p><strong>Bez zobowiązań</strong><span>Prośba o kontakt nie oznacza zamówienia ani płatności.</span></p></div>
+            {site.phone && <div><span class="contact-icon"><PhoneCall size={18} aria-hidden="true" /></span><p><strong>Wolisz zadzwonić?</strong><a href={`tel:${site.phone.replace(/[^\d+]/g, '')}`}>{site.phone}</a></p></div>}
+            {site.contactEmail && <div><span class="contact-icon"><Mail size={18} aria-hidden="true" /></span><p><strong>Wolisz napisać?</strong><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p></div>}
           </div>
           <a class="contact-process-link" href="/jak-to-dziala/">Zobacz, jak przebiega współpraca <ArrowRight size={15} aria-hidden="true" /></a>
         </aside>
@@ -34,5 +35,6 @@ import { site } from '../data/site';
   .contact-notes p { display: grid; gap: .13rem; margin: 0; }
   .contact-notes strong { font-size: .88rem; }
   .contact-notes span, .contact-notes a { color: var(--muted); font-size: .83rem; }
+  .contact-notes a { width: fit-content; }
   .contact-process-link { display: inline-flex; align-items: center; gap: .4rem; color: var(--accent-dark); font-size: .87rem; font-weight: 700; }
 </style>

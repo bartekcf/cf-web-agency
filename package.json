@@ -7,8 +7,10 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "dev:worker": "astro build && wrangler dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy:cloudflare": "astro build && wrangler deploy",
     "astro": "astro"
   },
   "dependencies": {
@@ -19,6 +21,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "wrangler": "^4.156.1"
   }
 }

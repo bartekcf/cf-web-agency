@@ -1,13 +1,13 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import PackageCard from "../../components/PackageCard.astro";
-import { packages } from "../../data/packages";
-import FAQList from "../../components/FAQList.astro";
-import { additionalServices, offerFaqs } from "../../data/faq";
+import { ArrowRight, Check } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import OfferCard from '../../components/OfferCard.astro';
+import { offers } from '../../data/offers';
+import FAQList from '../../components/FAQList.astro';
+import { additionalServices, offerFaqs } from '../../data/faq';
 
-const title = "Oferta stron internetowych";
-const description = "Poznaj pakiety tworzenia stron internetowych, zakres prac i opcje dodatkowe. Wybierz rozwiązanie dopasowane do potrzeb swojej firmy.";
-const sortedPackages = [...packages];
+const title = 'Oferta stron i prostych aplikacji';
+const description = 'Zobacz, jak możemy pomóc z firmową stroną lub prostą aplikacją. Zakres i cenę ustalamy przed rozpoczęciem prac.';
 ---
 
 <BaseLayout title={title} description={description} canonicalPath="/oferta/">
@@ -16,53 +16,39 @@ const sortedPackages = [...packages];
       <div class="container intro-grid">
         <div>
           <p class="eyebrow">Oferta</p>
-          <h1 class="display">Strona dopasowana do tego, <span>czego potrzebujesz.</span></h1>
-          <p class="lead">Przejrzyste pakiety porządkują zakres i budżet. Każdy projekt zaczynamy od rozmowy o celach, a ostateczny zakres potwierdzamy przed rozpoczęciem prac.</p>
-          <div class="actions"><a class="button button-primary" href="/kontakt/">Porozmawiajmy o projekcie</a><a class="text-link" href="#pakiety">Zobacz pakiety <span aria-hidden="true">↓</span></a></div>
+          <h1 class="display">Strona albo narzędzie. <span>Ty wybierasz cel.</span></h1>
+          <p class="lead">Pomagamy małym firmom pokazać ofertę albo uprościć konkretny proces. Nie musisz znać technologii — wystarczy, że opowiesz nam, czego potrzebujesz.</p>
+          <div class="actions"><a class="button button-primary" href="/kontakt/#formularz">Poproś o telefon <ArrowRight size={16} aria-hidden="true" /></a><a class="text-link" href="#oferty">Zobacz dwie oferty <span aria-hidden="true">↓</span></a></div>
         </div>
-        <aside class="scope card" aria-label="Jak wygląda współpraca">
-          <p class="eyebrow">W każdym projekcie</p>
+        <aside class="scope card" aria-label="Co obejmuje współpraca">
+          <p class="eyebrow">Od rozmowy po uruchomienie</p>
           <ul>
-            <li><span aria-hidden="true">✓</span> Uzgodniony zakres i jasne etapy</li>
-            <li><span aria-hidden="true">✓</span> Projekt dopasowany do marki i celu</li>
-            <li><span aria-hidden="true">✓</span> Widok mobilny i desktopowy</li>
-            <li><span aria-hidden="true">✓</span> Wdrożenie po akceptacji ustaleń</li>
+            <li><Check size={17} aria-hidden="true" /> Pomoc z treścią i materiałami</li>
+            <li><Check size={17} aria-hidden="true" /> Uzgodniony zakres i cena</li>
+            <li><Check size={17} aria-hidden="true" /> Wsparcie z domeną i hostingiem</li>
+            <li><Check size={17} aria-hidden="true" /> Publikacja zaakceptowanego rozwiązania</li>
           </ul>
-          <p class="muted small">Szczegóły zależą od wybranego pakietu — sprawdź dokładny zakres poniżej.</p>
+          <p class="muted small">Zajmujemy się wyborem i konfiguracją domeny oraz hostingu w uzgodnionym zakresie. Domenę rejestrujemy na dane klienta jako abonenta; koszty usług zewnętrznych omawiamy przed startem.</p>
         </aside>
       </div>
     </section>
 
-    <section class="section packages-section" id="pakiety">
+    <section class="section offers-section" id="oferty">
       <div class="container">
         <div class="section-heading">
-          <div><p class="eyebrow">Wybierz punkt wyjścia</p><h2>Pakiety stron</h2></div>
-          <p class="muted">Ceny „od” określają koszt bazowego zakresu. Dodatkowe wymagania wyceniamy przed podjęciem decyzji.</p>
+          <p class="eyebrow">Punkt wyjścia do rozmowy</p>
+          <h2>Dwie oferty, zakres ustalamy razem.</h2>
+          <p>Obie propozycje są punktem wyjścia. Potrzebny zakres i cenę ustalamy po rozmowie.</p>
         </div>
-        <div class="package-grid">
-          {sortedPackages.map((item) => <PackageCard package={item} />)}
-        </div>
-        <div class="compare-wrap">
-          <h3>Porównaj zakresy</h3>
-          <p class="muted compare-note">Na małym ekranie każdy pakiet to osobna karta — przewiń listę w dół, aby porównać kolejne opcje.</p>
-          <div class="compare-cards">
-            {sortedPackages.map((item) => (
-              <article class="compare-card card">
-                <h4>{item.name}</h4>
-                <p class="compare-price">od {item.priceFrom.toLocaleString("pl-PL")} zł</p>
-                <p>{item.summary}</p>
-                <dl><div><dt>Dla kogo</dt><dd>{item.audience}</dd></div><div><dt>Rundy poprawek</dt><dd>{item.revisionRounds}</dd></div></dl>
-                <a class="text-link" href={`/oferta/${item.slug}/`}>Pełny zakres pakietu <span aria-hidden="true">→</span></a>
-              </article>
-            ))}
-          </div>
+        <div class="offer-grid">
+          {offers.map((offer) => <OfferCard offer={offer} />)}
         </div>
       </div>
     </section>
 
     <section class="section extras-section">
       <div class="container extras-grid">
-        <div><p class="eyebrow">Poza pakietem</p><h2>Usługi dodatkowe</h2><p class="muted">Jeśli potrzebujesz czegoś więcej, omówimy zakres i przedstawimy indywidualną wycenę. Nie doliczamy dodatków bez wcześniejszego uzgodnienia.</p></div>
+        <div><p class="eyebrow">W razie potrzeby</p><h2>Możemy ustalić także dalszą pomoc.</h2><p class="muted">Dodatkowe prace omawiamy osobno. Przed rozpoczęciem poznasz ich zakres i cenę.</p></div>
         <div class="extras-list">
           {additionalServices.map((service) => <article><h3>{service.title}</h3><p>{service.description}</p></article>)}
         </div>
@@ -71,12 +57,12 @@ const sortedPackages = [...packages];
 
     <section class="section faq-section">
       <div class="container faq-layout">
-        <div><p class="eyebrow">Koszty bez niespodzianek</p><h2>Najczęstsze pytania</h2><p class="muted">Nie widzisz odpowiedzi? <a href="/kontakt/">Napisz do nas</a>.</p></div>
+        <div><p class="eyebrow">Koszty i zakres</p><h2>Najczęstsze pytania</h2><p class="muted">Nie widzisz odpowiedzi? <a href="/kontakt/#formularz">Poproś o telefon</a>.</p></div>
         <FAQList items={offerFaqs} name="Pytania o ofertę i koszty" />
       </div>
     </section>
 
-    <section class="section final-section"><div class="container final-card"><div><p class="eyebrow">Kolejny krok</p><h2>Ustalmy zakres dla Twojej strony.</h2><p>Opowiedz nam o potrzebach, a pomożemy dobrać właściwy punkt wyjścia.</p></div><a class="button button-primary" href="/kontakt/">Skontaktuj się</a></div></section>
+    <section class="section final-section"><div class="container final-card"><div><p class="eyebrow">Kolejny krok</p><h2>Opowiedz, czego potrzebuje Twoja firma.</h2><p>Wspólnie ustalimy sensowny zakres i cenę. Sam kontakt niczego nie zamawia.</p></div><a class="button button-primary" href="/kontakt/#formularz">Poproś o telefon <ArrowRight size={16} aria-hidden="true" /></a></div></section>
   </main>
 </BaseLayout>
 
@@ -92,39 +78,21 @@ const sortedPackages = [...packages];
   .scope { padding: clamp(1.5rem, 4vw, 2.5rem); }
   .scope ul { margin: 1.5rem 0; padding: 0; list-style: none; display: grid; gap: 1rem; }
   .scope li { display: flex; gap: .8rem; align-items: flex-start; }
-  .scope li span { color: var(--accent); font-weight: 800; }
+  .scope li svg { flex: 0 0 auto; color: var(--accent); }
   .small { font-size: .9rem; line-height: 1.6; }
-  .packages-section, .faq-section { background: var(--surface); }
-  .section-heading { display: flex; justify-content: space-between; gap: 2rem; align-items: end; margin-bottom: 2.5rem; }
-  .section-heading > p { max-width: 32rem; }
-  .package-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
-  .compare-wrap { margin-top: 5rem; }
-  .compare-wrap > h3 { font-size: 1.7rem; margin: 0 0 .35rem; }
-  .compare-note { margin: 0 0 1.25rem; }
-  .compare-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-  .compare-card { padding: 1.5rem; min-width: 0; }
-  .compare-card h4 { font-size: 1.25rem; margin: 0; }
-  .compare-price { color: var(--accent-dark); font-weight: 700; }
-  .compare-card > p:not(.compare-price) { color: var(--muted); line-height: 1.6; }
-  .compare-card dl { margin: 1.25rem 0; }
-  .compare-card dl div { border-top: 1px solid var(--line); padding: .8rem 0; }
-  .compare-card dt { color: var(--muted); font-size: .85rem; }
-  .compare-card dd { margin: .2rem 0 0; font-weight: 600; }
+  .offers-section, .faq-section { background: var(--surface); }
+  .extras-grid { align-items: start; }
   .extras-list { display: grid; gap: 1rem; }
-  .extras-list article { padding: 1.25rem 1.5rem; border: 1px solid var(--line); }
+  .extras-list article { padding: 1.25rem 1.5rem; border: 1px solid var(--line); background: var(--surface); }
   .extras-list h3 { margin: 0 0 .5rem; font-size: 1.1rem; }
   .extras-list p { margin: 0; color: var(--muted); line-height: 1.65; }
   .faq-layout { align-items: start; }
-  .faq-list { border-top: 1px solid var(--line); }
-  details { border-bottom: 1px solid var(--line); padding: 1.25rem 0; }
-  summary { cursor: pointer; font-weight: 650; }
-  details p { color: var(--muted); line-height: 1.7; margin: .9rem 0 0; max-width: 48rem; }
   .faq-layout a { color: inherit; }
   .final-section { padding-top: 1rem; }
   .final-card { display: flex; justify-content: space-between; align-items: center; gap: 2rem; padding: clamp(2rem, 5vw, 4rem); background: var(--forest); color: var(--paper); }
   .final-card h2 { max-width: 15ch; }
   .final-card p:not(.eyebrow) { color: color-mix(in srgb, var(--paper), transparent 25%); }
   .final-card .eyebrow { color: var(--lime); }
-  @media (max-width: 800px) { .intro-grid, .extras-grid, .faq-layout { grid-template-columns: 1fr; } .package-grid, .compare-cards { grid-template-columns: 1fr; } .section-heading { display: block; } .section-heading > p { margin-top: 1rem; } }
+  @media (max-width: 800px) { .intro-grid, .extras-grid, .faq-layout { grid-template-columns: 1fr; } }
   @media (max-width: 520px) { .final-card { align-items: flex-start; flex-direction: column; } .actions { align-items: flex-start; flex-direction: column; } }
 </style>

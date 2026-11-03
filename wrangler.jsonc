@@ -1,8 +1,26 @@
 {
   "name": "cf-web-agency",
+  "main": "./src/worker.ts",
   "compatibility_date": "2026-11-02",
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "404-page"
-  }
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "send_email": [
+    {
+      "name": "MAILER"
+    }
+  ],
+  "ratelimits": [
+    {
+      "name": "CALLBACK_LIMITER",
+      "namespace_id": "824731905",
+      "simple": {
+        "limit": 5,
+        "period": 60
+      }
+    }
+  ]
 }

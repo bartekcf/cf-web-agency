@@ -14,7 +14,7 @@ import { site } from '../../data/site';
         <a href={item.href} aria-current={Astro.url.pathname.replace(/\/$/, '') === item.href.replace(/\/$/, '') ? 'page' : undefined}>{item.label}</a>
       ))}
     </nav>
-    <a class="button button-primary header-cta" href="/kontakt/">Zamów stronę <ArrowUpRight size={16} aria-hidden="true" /></a>
+    <a class="button button-primary header-cta" href="/kontakt/#formularz">Poproś o telefon <ArrowUpRight size={16} aria-hidden="true" /></a>
     <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false" aria-label="Otwórz menu" data-menu-toggle>
       <Menu class="menu-icon" size={19} aria-hidden="true" />
       <X class="close-icon" size={19} aria-hidden="true" />

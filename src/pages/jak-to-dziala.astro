@@ -3,28 +3,27 @@ import { ArrowRight, Check } from '@lucide/astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const steps = [
-  { title: 'Wybierasz punkt wyjścia', text: 'Rozmawiamy o Twojej firmie, klientach i celu strony. Pomagamy dobrać pakiet albo ustalić indywidualny zakres.' },
-  { title: 'Przekazujesz materiały', text: 'Zbieramy logo, zdjęcia, teksty i dane firmy. Jeśli czegoś brakuje, wspólnie ustalamy, jak to uzupełnić.' },
-  { title: 'Przygotowujemy i dopracowujemy stronę', text: 'Tworzymy projekt, udostępniamy go do sprawdzenia i zbieramy uwagi w rundach przewidzianych przez pakiet.' },
-  { title: 'Uruchamiamy stronę', text: 'Pomagamy skonfigurować domenę, hosting i HTTPS, publikujemy zaakceptowaną stronę oraz sprawdzamy ją na różnych ekranach.' },
-  { title: 'Pokazujemy, co dalej', text: 'Przekazujemy ustalone dostępy i krótkie wprowadzenie. Późniejsze aktualizacje lub opiekę można omówić osobno.' },
+  { title: 'Rozmowa i ustalenia', text: 'Opowiadasz o firmie lub procesie, który chcesz usprawnić. Pomagamy określić cel i potrzebne materiały.' },
+  { title: 'Propozycja zakresu i ceny', text: 'Przedstawiamy, co przygotujemy, jak będzie przebiegać praca i jaki jest koszt. Zaczynamy po uzgodnieniu warunków.' },
+  { title: 'Wykonanie i podgląd', text: 'Przygotowujemy rozwiązanie i pokazujemy Ci wersję do sprawdzenia. Uwagi omawiamy w ramach ustalonego zakresu.' },
+  { title: 'Akceptacja i uruchomienie', text: 'Po uzgodnieniu poprawek przygotowujemy publikację, pomagamy z domeną i hostingiem oraz pokazujemy, jak korzystać z gotowego rozwiązania.' },
 ];
-const materials = ['Nazwa firmy i krótki opis działalności', 'Lista usług, produktów lub informacji do pokazania', 'Logo i kolory marki, jeśli już je masz', 'Zdjęcia własne lub przykłady stylu, który Ci odpowiada', 'Dane kontaktowe, adres i godziny otwarcia — jeśli są potrzebne', 'Informacja o domenie i hostingu, jeśli zostały już wykupione'];
+const materials = ['Nazwa firmy i krótki opis działalności', 'Lista usług, produktów lub procesu do usprawnienia', 'Logo i kolory marki, jeśli już je masz', 'Zdjęcia własne lub przykłady stylu, który Ci odpowiada', 'Dane kontaktowe, adres i godziny otwarcia — jeśli są potrzebne', 'Informacja o domenie i hostingu, jeśli zostały już wykupione'];
 ---
 
-<BaseLayout title="Jak wygląda współpraca" description="Poznaj etapy tworzenia strony, materiały potrzebne na start oraz sposób publikacji i przekazania gotowej strony." canonicalPath="/jak-to-dziala/">
+<BaseLayout title="Jak wygląda współpraca" description="Poznaj etapy tworzenia strony lub prostej aplikacji, materiały potrzebne na start oraz sposób publikacji i przekazania gotowego rozwiązania." canonicalPath="/jak-to-dziala/">
   <main id="main">
     <section class="article-hero">
       <div class="container">
         <p class="eyebrow">Współpraca krok po kroku</p>
         <h1>Ty znasz swój biznes. My prowadzimy przez resztę.</h1>
-        <p>Nie musisz wiedzieć, jak działają domeny, serwery ani kod. Ustalamy zakres prostym językiem, pokazujemy postęp i pomagamy uruchomić gotową stronę.</p>
+        <p>Nie musisz znać się na technologii. Ustalamy zakres prostym językiem, pokazujemy postęp i pomagamy uruchomić gotowe rozwiązanie — stronę albo prostą aplikację.</p>
       </div>
     </section>
 
     <section class="section process-detail" aria-labelledby="steps-title">
       <div class="container">
-        <div class="section-heading"><p class="eyebrow">Przejrzysta droga</p><h2 id="steps-title">Od rozmowy do publikacji</h2><p>Dokładny harmonogram zależy od zakresu projektu i dostępności materiałów. Potwierdzamy go przed rozpoczęciem prac.</p></div>
+        <div class="section-heading"><p class="eyebrow">Przejrzysta droga</p><h2 id="steps-title">Od rozmowy do uruchomienia</h2><p>Dokładny harmonogram zależy od zakresu projektu i dostępności materiałów. Potwierdzamy go przed rozpoczęciem prac.</p></div>
         <ol class="timeline">
           {steps.map((step, index) => <li><span class="timeline-number">0{index + 1}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></li>)}
         </ol>
@@ -40,12 +39,12 @@ const materials = ['Nazwa firmy i krótki opis działalności', 'Lista usług, p
 
     <section class="section handover-section" aria-labelledby="handover-title">
       <div class="container handover-grid">
-        <div><p class="eyebrow">Po uruchomieniu</p><h2 id="handover-title">Wiesz, co otrzymujesz.</h2><p>Przed rozpoczęciem uzgadniamy sposób publikacji, dostępów i przekazania plików. Strony w pakietach nie zawierają panelu CMS do samodzielnej zmiany treści.</p></div>
-        <div class="handover-card card"><h3>Po wdrożeniu</h3><ul><li>Adres działającej strony na skonfigurowanej domenie</li><li>Uzgodnione dostępy i informacje o hostingu</li><li>Krótkie wprowadzenie do gotowego rozwiązania</li><li>Możliwość osobnego zamówienia dalszej opieki</li></ul></div>
+        <div><p class="eyebrow">Po uruchomieniu</p><h2 id="handover-title">Wiesz, co otrzymujesz.</h2><p>Przed rozpoczęciem uzgadniamy sposób publikacji, dostępów i przekazania plików. Ustalamy też, które elementy możesz zmieniać samodzielnie, a przy których potrzebujesz naszej pomocy.</p></div>
+        <div class="handover-card card"><h3>Po wdrożeniu</h3><ul><li>Informacje o uruchomionym rozwiązaniu</li><li>Uzgodnione dostępy i wskazówki dotyczące hostingu</li><li>Krótkie wprowadzenie do gotowej strony lub aplikacji</li><li>Możliwość uzgodnienia dalszego utrzymania</li></ul></div>
       </div>
     </section>
 
-    <section class="section"><div class="container"><div class="cta-band"><div class="cta-band-inner"><div><p class="eyebrow">Możemy zacząć od rozmowy</p><h2>Masz pytanie o swoją sytuację?</h2><p>Opisz, czego potrzebujesz — podpowiemy, jaki może być kolejny krok.</p></div><a class="button" href="/kontakt/">Zapytaj o stronę <ArrowRight size={17} aria-hidden="true" /></a></div></div></div></section>
+    <section class="section"><div class="container"><div class="cta-band"><div class="cta-band-inner"><div><p class="eyebrow">Możemy zacząć od rozmowy</p><h2>Masz pytanie o swoją sytuację?</h2><p>Opisz, czego potrzebujesz — podpowiemy, jaki może być kolejny krok.</p></div><a class="button" href="/kontakt/#formularz">Poproś o telefon <ArrowRight size={17} aria-hidden="true" /></a></div></div></div></section>
   </main>
 </BaseLayout>
 
