@@ -94,17 +94,17 @@ const formatPrice = (amount: number) => amount.toLocaleString("pl-PL");
   .extension-grid { align-items: start; }
   .extension-grid > div > p:not(.eyebrow) { line-height: 1.7; }
   .extension-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
-  .extension-list li { border: 1px solid var(--line); border-radius: .85rem; padding: 1rem; line-height: 1.5; }
+  .extension-list li { border: 1px solid var(--line); padding: 1rem; line-height: 1.5; }
   .faq-layout { align-items: start; }
   .faq-layout a { color: inherit; }
   .faq-list { border-top: 1px solid var(--line); }
   details { border-bottom: 1px solid var(--line); padding: 1.25rem 0; }
   summary { cursor: pointer; font-weight: 650; }
   details p { color: var(--muted); line-height: 1.7; margin: .9rem 0 0; max-width: 48rem; }
-  .contact-card { display: flex; justify-content: space-between; align-items: center; gap: 2rem; border-radius: 1.5rem; padding: clamp(2rem, 5vw, 4rem); background: var(--ink); color: var(--paper); }
+  .contact-card { display: flex; justify-content: space-between; align-items: center; gap: 2rem; padding: clamp(2rem, 5vw, 4rem); background: var(--forest); color: var(--paper); }
   .contact-card h2 { max-width: 15ch; }
   .contact-card p:not(.eyebrow) { color: color-mix(in srgb, var(--paper), transparent 25%); }
-  .contact-card .eyebrow { color: var(--accent); }
+  .contact-card .eyebrow { color: var(--lime); }
   @media (max-width: 760px) { .hero-grid, .scope-grid, .extension-grid, .faq-layout { grid-template-columns: 1fr; } .excluded { border-left: 0; border-top: 1px solid var(--line); padding: 2rem 0 0; } }
   @media (max-width: 520px) { .extension-list { grid-template-columns: 1fr; } .contact-card { align-items: flex-start; flex-direction: column; } }
 </style>

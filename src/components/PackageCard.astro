@@ -11,7 +11,7 @@ const { package: item } = Astro.props;
 ---
 
 <article class:list={["card", "package-card", item.featured && "package-card--featured"]}>
-  {item.featured && <span class="tag" style="border-color: #d4ccf4; background: #f4f1ff; color: var(--accent-dark);">Polecany pakiet</span>}
+  {item.featured && <span class="tag package-featured-tag">Polecany pakiet</span>}
   <h3>{item.name}</h3>
   <div class="package-price"><strong>{formatPrice(item.priceFrom)}</strong><span>i więcej</span></div>
   <p class="package-summary">{item.summary}</p>

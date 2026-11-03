@@ -73,12 +73,12 @@ const { project } = Astro.props;
   h1 { margin: .6rem 0 1rem; }
   .lead { font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.7; }
   .concept-note { margin-top: 1.5rem; padding: 1rem 1.2rem; border-left: 3px solid var(--accent); background: var(--surface); line-height: 1.65; }
-  .preview-wrap { overflow: hidden; border: 1px solid var(--line); border-radius: 1.5rem; }
+  .preview-wrap { overflow: hidden; border: 1px solid var(--line); }
   .content-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3rem); margin: clamp(3rem, 7vw, 5rem) 0; }
   .content-block h2, .contact-cta h2 { margin: .5rem 0 1rem; font-size: clamp(1.4rem, 2.5vw, 2rem); }
   .content-block p:not(.eyebrow), .content-block li { line-height: 1.75; }
   .content-block ul { display: grid; gap: .65rem; padding-left: 1.25rem; }
-  .contact-cta { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: clamp(1.5rem, 4vw, 3rem); border-radius: 1.5rem; background: var(--surface); }
+  .contact-cta { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid var(--line); background: var(--surface); }
   .contact-cta h2 { margin-bottom: .5rem; }
   .back-link { display: inline-block; margin-top: 2rem; }
   @media (max-width: 680px) { .content-grid { grid-template-columns: 1fr; } .contact-cta { align-items: flex-start; flex-direction: column; } }

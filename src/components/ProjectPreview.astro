@@ -9,9 +9,9 @@ interface Props {
 const { project, size = 'compact' } = Astro.props;
 ---
 
-<div class:list={["project-preview", size === "large" && "project-preview--large"]} style={`--preview-accent: ${project.accent}`} aria-hidden="true">
+<div class:list={["project-preview", size === "large" && "project-preview--large", `project-preview--${project.slug}`]} style={`--preview-accent: ${project.accent}`} aria-hidden="true">
   <div class="preview-browser">
-    <div class="preview-chrome"><i></i><i></i><i></i></div>
+    <div class="preview-chrome"><span>{project.name}</span><span>Koncepcja</span></div>
     <div class="preview-screen">
       <div class="preview-text">
         <p class="preview-label">{project.label}</p>

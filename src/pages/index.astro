@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, Check, MousePointer2, ShieldCheck, Smartphone, Sparkles } from '@lucide/astro';
+import { ArrowRight, Check, MousePointer2, ShieldCheck, Smartphone } from '@lucide/astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FAQList from '../components/FAQList.astro';
 import PackageCard from '../components/PackageCard.astro';
@@ -36,8 +36,8 @@ const audiences = [
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="eyebrow">Strony WWW dla małych firm</p>
-          <h1 id="hero-title">Twoja firma. <em>Dobry adres w sieci.</em></h1>
-          <p>Tworzymy profesjonalne strony bez technicznego stresu. Zajmiemy się projektem, konfiguracją i publikacją — Ty opowiesz nam o swojej firmie.</p>
+          <h1 id="hero-title">Strona, która wygląda jak <em>Twoja firma.</em></h1>
+          <p>Projektujemy i uruchamiamy strony dla małych firm — od pierwszego pomysłu po domenę i publikację. Bez technicznego żargonu, z jasną ceną.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="/oferta/">Sprawdź pakiety <ArrowRight size={17} aria-hidden="true" /></a>
             <a class="button button-secondary" href="/kontakt/">Zamów swoją stronę</a>
@@ -49,9 +49,9 @@ const audiences = [
             <li><Check size={16} aria-hidden="true" /> Pomoc przy publikacji</li>
           </ul>
         </div>
-        <div class="hero-art" aria-label="Przykładowa kompozycja strony internetowej na ekranie komputera" role="img">
+        <div class="hero-art" aria-label="Koncepcyjny projekt strony internetowej dla salonu barber" role="img">
           <div class="hero-browser">
-            <div class="browser-bar"><i class="browser-dot"></i><i class="browser-dot"></i><i class="browser-dot"></i><span class="browser-address">podgląd projektu</span></div>
+            <div class="browser-bar"><span class="mock-brand">NOŻYCZKA</span><span class="browser-address">STUDIO BARBER · KRAKÓW</span></div>
             <div class="mock-site">
               <div class="mock-copy">
                 <span class="mock-kicker">PRZYKŁADOWY PROJEKT · BARBER</span>
@@ -59,10 +59,10 @@ const audiences = [
                 <p>Klasyczne cięcie. Dobra rozmowa. Miejsce dla Ciebie.</p>
                 <span class="mock-button">Poznaj studio</span>
               </div>
-              <div class="mock-visual"><span class="mock-nav">NÓŻYCZKA <span>O NAS　 USŁUGI</span></span></div>
+              <div class="mock-visual"><span class="mock-nav">BARBER <span>KRAKÓW</span></span></div>
             </div>
           </div>
-          <div class="hero-sticker"><span class="hero-sticker-mark" aria-hidden="true"><Sparkles size={17} /></span><span><strong>Gotowa na każdy ekran</strong><span>Projekt dopasowany do Twojej firmy</span></span></div>
+          <div class="hero-sticker"><span class="hero-sticker-mark" aria-hidden="true">01</span><span><strong>Koncepcja strony</strong><span>Barber / Kraków</span></span></div>
         </div>
       </div>
     </section>
@@ -192,23 +192,27 @@ const audiences = [
 </BaseLayout>
 
 <style>
-  .benefit-section { background: #f0efeb; }
+  .benefit-section { background: var(--forest); color: var(--surface); }
+  .benefit-section .eyebrow { color: var(--lime); }
+  .benefit-section .benefit-intro h2 { color: var(--surface); }
+  .benefit-section .benefit-intro > p:not(.eyebrow), .benefit-section .benefit-row p { color: rgba(251,249,242,.76); }
+  .benefit-section .text-link { color: var(--lime); }
   .benefit-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(3rem, 10vw, 8rem); align-items: start; }
   .benefit-intro { position: sticky; top: 8rem; }
   .benefit-intro h2, .audience-intro h2, .addons-intro h2, .faq-intro h2 { max-width: 12ch; margin-bottom: 1rem; font-size: clamp(2.2rem, 4.2vw, 3.7rem); line-height: 1.02; letter-spacing: -.065em; }
   .benefit-intro > p:not(.eyebrow), .audience-intro > p:not(.eyebrow), .addons-intro > p:not(.eyebrow), .faq-intro > p:not(.eyebrow) { max-width: 440px; color: var(--muted); }
   .text-link, .process-link { display: inline-flex; align-items: center; gap: .5rem; color: var(--accent-dark); font-size: .9rem; font-weight: 720; text-decoration: none; }
   .text-link:hover, .process-link:hover { text-decoration: underline; text-underline-offset: .2em; }
-  .benefit-list { border-top: 1px solid #d9d6d0; }
-  .benefit-row { display: grid; grid-template-columns: 2.8rem 1fr; gap: 1rem; padding: 1.6rem 0; border-bottom: 1px solid #d9d6d0; }
-  .benefit-icon { display: grid; width: 2.6rem; height: 2.6rem; place-items: center; border: 1px solid #d7d0f3; border-radius: .8rem; background: #f8f7ff; color: var(--accent); }
-  .benefit-number { color: var(--muted); font-size: .7rem; font-weight: 700; letter-spacing: .1em; }
+  .benefit-list { border-top: 1px solid rgba(251,249,242,.25); }
+  .benefit-row { display: grid; grid-template-columns: 2.8rem 1fr; gap: 1rem; padding: 1.6rem 0; border-bottom: 1px solid rgba(251,249,242,.25); }
+  .benefit-icon { display: grid; width: 2.6rem; height: 2.6rem; place-items: center; border: 1px solid var(--lime); background: var(--lime); color: var(--forest); }
+  .benefit-number { color: rgba(251,249,242,.62); font-size: .7rem; font-weight: 700; letter-spacing: .1em; }
   .benefit-row h3 { margin: .2rem 0 .4rem; font-size: 1.17rem; letter-spacing: -.03em; }
   .benefit-row p { max-width: 520px; margin: 0; color: var(--muted); font-size: .9rem; }
   .pricing-section { background: var(--surface); }
   .pricing-note { margin: 1.5rem 0 0; color: var(--muted); font-size: .82rem; }
   .pricing-note a { color: var(--accent-dark); }
-  .process-section { background: #f0efeb; }
+  .process-section { background: var(--surface-soft); }
   .process-section .section-heading { max-width: 650px; }
   .process-link { margin-top: 2rem; }
   .portfolio-heading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
@@ -216,6 +220,13 @@ const audiences = [
   .portfolio-heading h2 { margin: 0 0 .75rem; font-size: clamp(2rem, 4.2vw, 3.5rem); line-height: 1.05; letter-spacing: -.06em; }
   .portfolio-heading p:not(.eyebrow) { margin: 0; color: var(--muted); }
   .portfolio-heading .button { flex-shrink: 0; }
+  .portfolio-section .project-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; gap: 1.25rem; }
+  .portfolio-section .project-card:nth-child(1) { grid-column: span 7; }
+  .portfolio-section .project-card:nth-child(2) { grid-column: span 5; margin-top: 5rem; }
+  .portfolio-section .project-card:nth-child(3) { grid-column: 4 / span 6; margin-top: -1.5rem; }
+  .portfolio-section .project-card:nth-child(1) .project-preview { min-height: 320px; }
+  .portfolio-section .project-card:nth-child(2) .project-preview { min-height: 245px; }
+  .portfolio-section .project-card:nth-child(3) .project-preview { min-height: 275px; }
   .audience-section { background: var(--surface); }
   .audience-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(3rem, 9vw, 7rem); align-items: start; }
   .audience-intro { position: sticky; top: 8rem; }
@@ -225,11 +236,11 @@ const audiences = [
   .audience-list h3 { margin: 0 0 .3rem; font-size: 1rem; }
   .audience-list p { max-width: 490px; margin: 0; color: var(--muted); font-size: .85rem; }
   .audience-list svg { margin-top: .2rem; color: var(--muted); }
-  .addons-section { background: #f0efeb; }
+  .addons-section { background: var(--surface-soft); }
   .addons-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(2rem, 7vw, 6rem); align-items: start; }
-  .addons-list { border-top: 1px solid #d8d5ce; }
-  .addons-list article { display: grid; grid-template-columns: 2rem 1fr auto; align-items: start; gap: .9rem; padding: 1.1rem 0; border-bottom: 1px solid #d8d5ce; }
-  .addon-plus { display: grid; width: 1.7rem; height: 1.7rem; place-items: center; border: 1px solid #d3cdee; border-radius: 50%; color: var(--accent); font-size: 1.1rem; }
+  .addons-list { border-top: 1px solid var(--line); }
+  .addons-list article { display: grid; grid-template-columns: 2rem 1fr auto; align-items: start; gap: .9rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+  .addon-plus { display: grid; width: 1.7rem; height: 1.7rem; place-items: center; border: 1px solid var(--accent); color: var(--accent); font-size: 1.1rem; }
   .addons-list h3 { margin: .1rem 0 .25rem; font-size: .96rem; }
   .addons-list p { max-width: 390px; margin: 0; color: var(--muted); font-size: .83rem; }
   .addons-list .tag { white-space: nowrap; }
@@ -247,5 +258,16 @@ const audiences = [
     .addons-list article { grid-template-columns: 2rem 1fr; }
     .addons-list .tag { grid-column: 2; }
     .audience-list li { grid-template-columns: 1.6rem 1fr auto; gap: .55rem; }
+  }
+  @media (max-width: 850px) {
+    .portfolio-section .project-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .portfolio-section .project-card:nth-child(1) { grid-column: span 4; }
+    .portfolio-section .project-card:nth-child(2) { grid-column: span 2; margin-top: 3rem; }
+    .portfolio-section .project-card:nth-child(3) { grid-column: 2 / span 4; margin-top: -1rem; }
+  }
+  @media (max-width: 640px) {
+    .portfolio-section .project-grid { grid-template-columns: 1fr; }
+    .portfolio-section .project-card:nth-child(1), .portfolio-section .project-card:nth-child(2), .portfolio-section .project-card:nth-child(3) { grid-column: auto; margin-top: 0; }
+    .portfolio-section .project-card .project-preview { min-height: 230px; }
   }
 </style>

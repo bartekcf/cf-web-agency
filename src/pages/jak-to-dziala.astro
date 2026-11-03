@@ -54,10 +54,10 @@ const materials = ['Nazwa firmy i krótki opis działalności', 'Lista usług, p
   .timeline { max-width: 850px; margin: 3rem auto 0; padding: 0; list-style: none; }
   .timeline li { position: relative; display: grid; grid-template-columns: 3.2rem 1fr; gap: 1.3rem; padding: 0 0 2.2rem; }
   .timeline li:not(:last-child)::before { position: absolute; top: 3rem; bottom: .3rem; left: 1.45rem; width: 1px; background: var(--line); content: ""; }
-  .timeline-number { position: relative; z-index: 1; display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid #d8d2f1; border-radius: 1rem; background: var(--accent-soft); color: var(--accent-dark); font-size: .82rem; font-weight: 800; }
+  .timeline-number { position: relative; z-index: 1; display: grid; width: 3rem; height: 3rem; place-items: center; border: 1px solid var(--accent); background: var(--accent-soft); color: var(--accent-dark); font-size: .82rem; font-weight: 800; }
   .timeline h3 { margin: .25rem 0 .45rem; font-size: 1.2rem; letter-spacing: -.035em; }
   .timeline p { max-width: 690px; margin: 0; color: var(--muted); }
-  .materials-section { background: #f0efeb; }
+  .materials-section { background: var(--surface-soft); }
   .materials-grid, .handover-grid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: start; gap: clamp(2rem, 8vw, 7rem); }
   .materials-grid h2, .handover-grid h2 { max-width: 12ch; font-size: clamp(2.1rem, 4vw, 3.4rem); line-height: 1.04; letter-spacing: -.06em; }
   .materials-grid > div > p:not(.eyebrow), .handover-grid > div > p:not(.eyebrow) { color: var(--muted); }

@@ -111,7 +111,7 @@ const sortedPackages = [...packages];
   .compare-card dt { color: var(--muted); font-size: .85rem; }
   .compare-card dd { margin: .2rem 0 0; font-weight: 600; }
   .extras-list { display: grid; gap: 1rem; }
-  .extras-list article { padding: 1.25rem 1.5rem; border: 1px solid var(--line); border-radius: 1rem; }
+  .extras-list article { padding: 1.25rem 1.5rem; border: 1px solid var(--line); }
   .extras-list h3 { margin: 0 0 .5rem; font-size: 1.1rem; }
   .extras-list p { margin: 0; color: var(--muted); line-height: 1.65; }
   .faq-layout { align-items: start; }
@@ -121,10 +121,10 @@ const sortedPackages = [...packages];
   details p { color: var(--muted); line-height: 1.7; margin: .9rem 0 0; max-width: 48rem; }
   .faq-layout a { color: inherit; }
   .final-section { padding-top: 1rem; }
-  .final-card { display: flex; justify-content: space-between; align-items: center; gap: 2rem; padding: clamp(2rem, 5vw, 4rem); border-radius: 1.5rem; background: var(--ink); color: var(--paper); }
+  .final-card { display: flex; justify-content: space-between; align-items: center; gap: 2rem; padding: clamp(2rem, 5vw, 4rem); background: var(--forest); color: var(--paper); }
   .final-card h2 { max-width: 15ch; }
   .final-card p:not(.eyebrow) { color: color-mix(in srgb, var(--paper), transparent 25%); }
-  .final-card .eyebrow { color: var(--accent); }
+  .final-card .eyebrow { color: var(--lime); }
   @media (max-width: 800px) { .intro-grid, .extras-grid, .faq-layout { grid-template-columns: 1fr; } .package-grid, .compare-cards { grid-template-columns: 1fr; } .section-heading { display: block; } .section-heading > p { margin-top: 1rem; } }
   @media (max-width: 520px) { .final-card { align-items: flex-start; flex-direction: column; } .actions { align-items: flex-start; flex-direction: column; } }
 </style>
